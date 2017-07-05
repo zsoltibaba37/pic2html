@@ -1,0 +1,98 @@
+#!/bin/bash
+#
+msz=`cat munkaszam.txt`
+echo " A szedőlap száma: $msz"
+db=`cat osszes.txt | wc -l`
+echo " Kész termékek száma: $db db"
+picdb=`ls *.BMP | wc -l`
+echo " A képek száma : $picdb db"
+if [ $db != $picdb ]
+   then
+   echo " A késztermékek száma nem eggyezik meg a képek számával, vagy nincs db.txt"
+   exit
+fi
+if [ ! -d html ]
+   then
+   echo " A html könyvtár nem létezik, ezért most létre lesz hozva."
+   mkdir html
+fi
+#
+#
+#
+readarray array < osszes.txt					# Filling the array with rows from osszes.txt
+#
+#
+#
+head="
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+"                                                               # html HEAD part
+#
+p1="<p>"                                                        # html paragraph begin part
+p2="</p>"                                                       # html paragraph end part
+#
+h1="<h2>"
+h2="</h2>"
+#
+img1="<img src=\""                                              # html image begin part
+img2="\">"                                                      # html image end part
+#
+t="
+</body>
+</html>
+"                                                               # html tail part
+#
+#
+#
+count=0
+while [ "x${array[count]}" != "x" ]                             # Run as many line in the osszes.txt
+do
+   echo "$head" > html/$msz.html	                        # The HTML file will begin to put together. This is the html HEAD part.
+   echo "$p1" >> html/$msz.html
+   echo "$h1" >> html/$msz.html
+   echo "Munkaszám: $msz" >> html/$msz.html
+   echo "$h2" >> html/$msz.html
+   echo "$p2" >> html/$msz.html
+   count2=1
+   while [ $db != $count2 ]
+   do
+      row=$(head osszes.txt -n $count2 | tail -n 1)       	# Put together a file line by line .
+      pic=$(head osszes.txt -n $count2 | tail -n 1 | cut -c 3-6)
+      picname=$(ls *.BMP | grep $pic)
+      echo "$p1" >> html/$msz.html				# Insert paragraph begin part.
+      echo "$row" >> html/$msz.html				# Insert next row.
+      echo "$p2" >> html/$msz.html
+      echo "$p1" >> html/$msz.html
+      echo "$img1" >> html/$msz.html
+      echo "$picname" >> html/$msz.html
+      echo "$img2" >> html/$msz.html
+      echo "$p2" >> html/$msz.html		                # Insert paragraph end part.
+      count2=$(( $count2 + 1 ))
+   done
+   count=$(( $count + 1 ))
+   last_row=$(tail osszes.txt -n 1) 	                        # Declarate last_row variable.
+   last_pic=$(tail osszes.txt -n 1 | cut -c 3-6)
+   last_picname=$(ls *.BMP | grep $last_pic)
+   echo "$p1" >> html/$msz.html                              # Insert paragraph begin part.
+   echo "$last_row" >> html/$msz.html                             # Insert last row.
+   echo "$p2" >> html/$msz.html
+   echo "$p1" >> html/$msz.html
+   echo "$img1" >> html/$msz.html
+   echo "$last_picname" >> html/$msz.html
+   echo "$img2" >> html/$msz.html
+   echo "$p2" >> html/$msz.html
+   echo "$t" >> html/$msz.html                     	        # This is the html tail part.
+done
+#
+#
+#
+find *.BMP -exec cp -p {} html/ \;
+echo ""
+echo " A BMP fájlok átmásolva a html könyvtárba"
+echo " A $msz html fájl elkészült. "
+echo ""
+ls -ltrh html/

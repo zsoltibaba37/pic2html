@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# Fill arraydir frmo folder names
+#
+for dir in */; do echo "$dir"; done | cut -d "/" -f1 > dir.txt
+#
+readarray arraydir < dir.txt
+#
+rm dir.txt
+#
+# 
+#
+c=0
+while [ "y${arraydir[c]}" != "y" ]
+do
+	echo " Ugrás a" ${arraydir[c]} "könyvtárba."
+	cd ${arraydir[c]}
+	pic2html
+	cd ..
+	c=$(( $c + 1 ))
+done

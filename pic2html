@@ -1,21 +1,21 @@
 #!/bin/bash
 exec 2>/dev/null
-dirs=$(find . -maxdepth 1 -type d -printf '%P\n')
+#dirs=$(find . -maxdepth 1 -type d -printf '%P\n')
 #
 # 
 #
-if [ ! -s jobnum.txt ]
-   then
-   echo ""
-   echo " A jobnum.txt nincs létrehozva, vagy üres a fájl."
-   echo " A jobnum.txt létrehozása."
-   touch jobnum.txt
-   echo " Kész"
-   echo " A jobnum.txt csak egy sorból állhat és csak egy számsort tartalmazhat."
-   echo " Pl.: 1740017792 "
-   echo " Kérlek másold bele a munkaszámot a jobnum.txt fájlba."
-   exit
-fi
+#if [ ! -s jobnum.txt ]
+#   then
+#   echo ""
+#   echo " A jobnum.txt nincs létrehozva, vagy üres a fájl."
+#   echo " A jobnum.txt létrehozása."
+#   touch jobnum.txt
+#   echo " Kész"
+#   echo " A jobnum.txt csak egy sorból állhat és csak egy számsort tartalmazhat."
+#   echo " Pl.: 1740017792 "
+#   echo " Kérlek másold bele a munkaszámot a jobnum.txt fájlba."
+#   exit
+#fi
 #
 #
 #
@@ -39,8 +39,8 @@ fi
 #
 #
 #
-msz=`cat jobnum.txt`
-#msz=`pwd | xargs basename`
+#msz=`cat jobnum.txt`
+msz=`pwd | xargs basename`
 echo ""
 echo " A szedőlap száma: $msz"
 #
@@ -75,11 +75,11 @@ if [ ! -d html ]
    rm html/*
 fi
 #
-#
+# Fill the array from part.txt
 #
 readarray array < part.txt
 #
-#
+# HTML codes: Head, Paragraph, Headings, Tail
 #
 head="
 <!DOCTYPE html>
@@ -104,11 +104,11 @@ t="
 </html>
 "                                                               
 #
-#
+# Name header
 #
 lr="Sablon	lv	darab"
 #
-#
+# 
 #
 echo "$head" > html/$msz.html           
 echo "$h1" >> html/$msz.html

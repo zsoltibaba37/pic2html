@@ -1,5 +1,6 @@
 ## 012345678.html - example
 
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +19,7 @@ S01234	10	400db
 </p>
 <p>
 <img src="
-![example](https://github.com/zsoltibaba37/pic2html/blob/master/example_folder/012345678/html/AM_BV_lv10_18_1238_2.png)
+AM_BV_lv8_10_1234_1.BMP
 ">
 </p>
 <p>
@@ -56,4 +57,4 @@ AM_BV_lv10_18_1238_2.BMP
 
 </body>
 </html>
-
+```

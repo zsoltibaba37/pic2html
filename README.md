@@ -20,6 +20,13 @@ $ pic2html
 # pic2html_all_folder
 This script use the pic2html script.
 The difference is that it runs in all subdirectories.
+#### How to execute the script
+```sh
+$ chmod +x pic2html_all_folder
+$ sudo cp -p pic2html_all_folder /usr/local/bin/ && sudo chown root:root /usr/local/bin/*
+$ cd <working_folder>
+$ pic2html_all_folder
+```
 #### Example
 In this example, there are two folders. The ```012345678``` and the ```0123456789```.
 ```sh

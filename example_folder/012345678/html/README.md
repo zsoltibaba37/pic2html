@@ -19,7 +19,7 @@ S01234	10	400db
 </p>
 <p>
 <img src="
-https://github/zsoltibaba37/pic2html/example_folder/012345678/html/AM_BV_lv10_18_1234_2.BMP
+![](https://github/zsoltibaba37/pic2html/example_folder/012345678/html/AM_BV_lv8_10_1234_1.BMP?raw=true)
 ">
 </p>
 <p>

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Fill arraydir frmo folder names
+# Fill arraydir from folder names
 #
 for dir in */; do echo "$dir"; done | cut -d "/" -f1 > dir.txt
 #
@@ -8,11 +8,12 @@ readarray arraydir < dir.txt
 #
 rm dir.txt
 #
-# 
+# pic2html run in each folder
 #
 c=0
 while [ "y${arraydir[c]}" != "y" ]
 do
+	echo "################################################################################"
 	echo " Ugrás a" ${arraydir[c]} "könyvtárba."
 	cd ${arraydir[c]}
 	pic2html

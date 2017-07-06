@@ -18,7 +18,7 @@ S01234	10	400db
 </p>
 <p>
 <img src="
-[![example](https://zsoltibaba37/pic2html/example_folder/012345678/html/AM_BV_lv10_18_1238_2.BMP)]
+![example](https://raw.githubusercontent.com/zsoltibaba37/pic2html/master/example_folder/012345678/html/AM_BV_lv8_10_1234_1.BMP)
 ">
 </p>
 <p>

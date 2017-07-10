@@ -75,7 +75,7 @@ You can see that the name of the html file is the same as the directory name.
 #### Image exaple
 
 <p align="center">
-<img src="AM_BV_lv8_10_1234_1.BMP" width="100%">
+<img src="AM_BV_lv8_10_1234_1.BMP" width="20%">
 <div align="center"><i>The first part example picture.</i></div>
 </p>
 

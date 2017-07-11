@@ -106,7 +106,8 @@ while [ "x${array[count]}" != "x" ]
 do
       count2=$(( $count + 1 ))
       row=$(head part.txt -n $count2 | tail -n 1)
-      pic=$(head part.txt -n $count2 | tail -n 1 | cut -c 3-6)
+#     pic=$(head part.txt -n $count2 | tail -n 1 | cut -c 3-6)
+      pic=$(head part.txt -n $count2 | tail -n 1 | cut -c 1-7 | cut -d "S" -f2 | cut -c 2-6)
       picname=$(ls *.BMP | grep $pic)
       if [ -z $picname ]
          then

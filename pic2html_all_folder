@@ -2,7 +2,7 @@
 #
 # Fill arraydir from folder names
 #
-for dir in */; do echo "$dir"; done | cut -d "/" -f1 > dir.txt
+for dir in */; do echo "$dir"; done | cut -d "/" -f1 | grep -v bmp > dir.txt
 #
 readarray arraydir < dir.txt
 #

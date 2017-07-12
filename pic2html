@@ -30,22 +30,22 @@ echo " A szedőlap száma: $msz"
 db=`cat part.txt | wc -l`
 echo " A késztermékek száma: $db db"
 #
-picdb=`ls *.BMP | wc -l`
-if [ $picdb = 0 ]
-   then
-   echo " A BMP képek hiányoznak. Kérlek másold be a BMP képeket a jelenlegi könyvtárba."
-   exit
-fi
-echo " A képek száma : $picdb db"
+#picdb=`ls *.BMP | wc -l`
+#if [ $picdb = 0 ]
+#   then
+#   echo " A BMP képek hiányoznak. Kérlek másold be a BMP képeket a jelenlegi könyvtárba."
+#   exit
+#fi
+#echo " A képek száma : $picdb db"
 #
 # The part number not equal with the BMP files number
 #
-if [ $db != $picdb ]
-   then
-   echo " A késztermékek száma nem eggyezik meg a képek számával."
-   echo " Valamelyik BMP kép kétszer szerepel a könyvtárban, vagy a part.txt hiányos."
-   exit
-fi
+#if [ $db != $picdb ]
+#   then
+#   echo " A késztermékek száma nem eggyezik meg a képek számával."
+#   echo " Valamelyik BMP kép kétszer szerepel a könyvtárban, vagy a part.txt hiányos."
+#   exit
+#fi
 #
 # Check the html folder. If not exist: create. If exist: Delete all file in the html folder
 #
@@ -108,7 +108,9 @@ do
       row=$(head part.txt -n $count2 | tail -n 1)
 #     pic=$(head part.txt -n $count2 | tail -n 1 | cut -c 3-6)
       pic=$(head part.txt -n $count2 | tail -n 1 | cut -c 1-7 | cut -d "S" -f2 | cut -c 2-6)
-      picname=$(ls *.BMP | grep $pic)
+#      picname=$(ls *.BMP | grep $pic)
+      picname=$(ls ../bmp/*.BMP | grep $pic | tail -n 1 | xargs basename)
+      find ../bmp/ -type f -name $picname -exec cp -p {} html/ \;
       if [ -z $picname ]
          then
          echo " A $pic BMP kép hiányzik. Kérlek másold be a $pic BMP képet a jelenlegi könyvtárba."
@@ -129,7 +131,7 @@ echo "$t" >> html/$msz.html
 #
 # Copy the BMP files to the html folder
 #
-find *.BMP -exec cp -p {} html/ \;
+#find *.BMP -exec cp -p {} html/ \;
 html_file=`ls html/*.html | xargs basename`
 echo ""
 echo " A BMP fájlok átmásolva a html könyvtárba."

@@ -1,67 +1,6 @@
 #!/bin/bash
 exec 2>/dev/null
 #
-# Check that the part.txt file is exists, and that it is not empty
-#
-if [ ! -s part.txt ]
-   then
-   echo ""
-   echo " A part.txt nincs létrehozva,vagy üres a fájl."
-   echo " A part.txt létrehozása."
-   touch part.txt
-   echo " Kész"
-   echo " Az part.txt az alábbi módon nézzen ki."
-   echo ""
-   echo "S04077  10B     400db"
-   echo "S04078  8B      200db"
-   echo "S04079  8B      200db"
-   echo ""
-   echo " A part.txt csak annyi sorbon álljon ahány készterméket akarunk rakni a szedőlapra."
-   echo " Kérlek másold bele az adatokat a part.txt fájlba."
-   exit
-fi
-#
-# jobnumer, piece of part, piece of BMP
-#
-msz=`pwd | xargs basename`
-echo ""
-echo " A szedőlap száma: $msz"
-#
-db=`cat part.txt | wc -l`
-echo " A késztermékek száma: $db db"
-#
-#picdb=`ls *.BMP | wc -l`
-#if [ $picdb = 0 ]
-#   then
-#   echo " A BMP képek hiányoznak. Kérlek másold be a BMP képeket a jelenlegi könyvtárba."
-#   exit
-#fi
-#echo " A képek száma : $picdb db"
-#
-# The part number not equal with the BMP files number
-#
-#if [ $db != $picdb ]
-#   then
-#   echo " A késztermékek száma nem eggyezik meg a képek számával."
-#   echo " Valamelyik BMP kép kétszer szerepel a könyvtárban, vagy a part.txt hiányos."
-#   exit
-#fi
-#
-# Check the html folder. If not exist: create. If exist: Delete all file in the html folder
-#
-if [ ! -d html ]
-   then
-   echo " A html könyvtár nem létezik, ezért most létre lesz hozva."
-   mkdir html
-   else
-   echo " A html könyvtár létezik. A benne lévő fájlok törlődnek ! ! !"
-   rm html/*
-fi
-#
-# Fill the array from part.txt
-#
-readarray array < part.txt
-#
 # HTML codes: Head, Paragraph, Headings, Tail
 #
 head="
@@ -91,6 +30,50 @@ t="
 #
 lr="Sablon	lv	darab"
 #
+# Check that the part.txt file is exists, and that it is not empty
+#
+if [ ! -s part.txt ]
+   then
+   echo ""
+   echo " A part.txt nincs létrehozva,vagy üres a fájl."
+   echo " A part.txt létrehozása."
+   touch part.txt
+   echo " Kész"
+   echo " Az part.txt az alábbi módon nézzen ki."
+   echo ""
+   echo "S04077  10B     400db"
+   echo "S04078  8B      200db"
+   echo "S04079  8B      200db"
+   echo ""
+   echo " A part.txt csak annyi sorból álljon ahány készterméket akarsz rakni a szedőlapra."
+   echo " Kérlek másold bele az adatokat a part.txt fájlba."
+   exit
+fi
+#
+# jobnumer, piece of part, piece of BMP
+#
+msz=`pwd | xargs basename`
+echo ""
+echo " A szedőlap száma: $msz"
+#
+db=`cat part.txt | wc -l`
+echo " A késztermékek száma: $db db"
+#
+# Check the html folder. If not exist: create. If exist: Delete all file in the html folder
+#
+if [ ! -d html ]
+   then
+   echo " A html könyvtár nem létezik, ezért most létre lesz hozva."
+   mkdir html
+   else
+   echo " A html könyvtár már létezik. A benne lévő fájlok törlődnek ! ! !"
+   rm html/*
+fi
+#
+# Fill the array from part.txt
+#
+readarray array < part.txt
+#
 # At this point put together the html file 
 #
 echo "$head" > html/$msz.html           
@@ -113,7 +96,7 @@ do
       find ../bmp/ -type f -name $picname -exec cp -p {} html/ \;
       if [ -z $picname ]
          then
-         echo " A $pic BMP kép hiányzik. Kérlek másold be a $pic BMP képet a jelenlegi könyvtárba."
+         echo " A $pic BMP kép hiányzik. Kérlek másold be a $pic BMP képet a ../bmp/ könyvtárba."
          rm -r html
          exit
       fi

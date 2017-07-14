@@ -10,6 +10,7 @@ Part.txt is like a database. It integrates part.txt lines and bmp files into htm
 You do not have to install it.
 #### Files
 pic2html
+
 pic2html_all_folder
 #### How to execute the script
 ```sh
@@ -68,7 +69,7 @@ You can see that the name of the html file is the same as the directory name.
 #### Image exaple
 
 <p align="center">
-<img src="AM_BV_lv8_10_1234_1.BMP" width="20%">
+<img src="bmp/AM_BV_lv8_10_1234_1.BMP" width="20%">
 <div align="center"><i>The first part example picture.</i></div>
 </p>
 

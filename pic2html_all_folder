@@ -1,4 +1,5 @@
 #!/bin/bash
+clear
 #
 # Fill arraydir from folder names, except bmp folder.
 # The bmp folder contains the images, so it does not have to be scanned.

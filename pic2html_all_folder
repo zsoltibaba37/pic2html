@@ -69,6 +69,7 @@ c=0
 while [ "y${arraydir[c]}" != "y" ]
 do
 	echo "################################################################################"
+	echo ""
 	echo " Ugrás a" ${arraydir[c]} "könyvtárba."
 	cd ${arraydir[c]}
 	pic2html

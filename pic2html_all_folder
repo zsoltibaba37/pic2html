@@ -7,10 +7,63 @@ for dir in */; do echo "$dir"; done | cut -d "/" -f1 | grep -v bmp > dir.txt
 #
 readarray arraydir < dir.txt
 #
+# This part check the part.txt is it exist or not.
+#
+a=0
+i=0
+e=0
+while [ "z${arraydir[e]}" != "z" ]
+do
+        echo "################################################################################"
+	echo ""
+        echo " Ugrás a" ${arraydir[e]} "könyvtárba, és a part.txt ellenörzése."
+        cd ${arraydir[e]}
+	if [ ! -s part.txt ]
+	   then
+	   echo ""
+	   echo " A part.txt nincs létrehozva" ${arraydir[e]} "könyvtárban, vagy üres a fájl."
+	   echo " Az part.txt az alábbi módon nézzen ki."
+	   echo ""
+	   echo "S04077  10B     400db"
+	   echo "S04078  8B      200db"
+	   echo "S04079  8B      200db"
+	   echo ""
+	   echo " A part.txt csak annyi sorból álljon ahány készterméket akarsz rakni a szedőlapra."
+	   e=$(( $e + 1 ))
+	   i=$(( $i + 1 ))
+	   cd ..
+	   else 
+	   echo ""
+	   echo "################################################################################"
+	   echo ""
+	   echo " A part.txt létezik és nem üres."
+	   echo ""
+	   e=$(( $e + 1 ))
+	   cd ..
+	fi
+done
+#
+# If no exist part.txt in any folder the script terminate.
+#
+if [ $i -ne $a ]
+   then
+   echo ""
+   echo "################################################################################"
+   echo ""
+   echo " $i könyvtárban nincs part.txt."
+   echo " A script most leáll ! ! ! Kérlek hozd létre a hiányzó part.txt fájlt."
+   echo ""
+   echo "################################################################################"
+   echo ""
+   rm dir.txt
+   exit 1
+fi
+#
 rm dir.txt
 #
 # And run pic2html script in each folder
 #
+c2=0
 c=0
 while [ "y${arraydir[c]}" != "y" ]
 do
@@ -18,12 +71,26 @@ do
 	echo " Ugrás a" ${arraydir[c]} "könyvtárba."
 	cd ${arraydir[c]}
 	pic2html
+	if [[ $? -eq 0 ]] # check the pic2html exit status. If the status 1, the send message.
+	then
+	  echo "################################################################################"
+	  echo ""
+	  echo " A pic2html hiba nélkül lefutott."
+	  echo ""
+	  c2=$(( $c2 + 1 ))
+	else
+	  echo "################################################################################"
+	  echo ""
+	  echo " Hiba volt a pic2html futásában." >&2
+	  echo ""
+	fi
 	cd ..
 	c=$(( $c + 1 ))
 done
 echo ""
 echo "################################################################################"
 echo ""
-echo " $c darab könyvtárban készítettem html könyvtárat."
+echo " $c2 darab könyvtárban készítettem html könyvtárat."
 echo ""
 echo "################################################################################"
+exit 0

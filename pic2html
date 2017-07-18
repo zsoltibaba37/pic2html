@@ -50,7 +50,7 @@ if [ ! -s part.txt ]
    exit
 fi
 #
-# jobnumer, piece of part, piece of BMP
+# jobnumer, piece of part
 #
 msz=`pwd | xargs basename`
 echo ""
@@ -96,7 +96,7 @@ do
          then
          echo " A $pic BMP kép hiányzik. Kérlek másold be a $pic BMP képet a ../bmp/ könyvtárba."
          rm -r html
-         exit
+         exit 1 # Exit if any BMP file is not exist.
       fi
       echo "$p1" >> html/$msz.html
       echo "$row" >> html/$msz.html
@@ -117,3 +117,4 @@ echo ""
 echo " A BMP fájlok átmásolva a html könyvtárba."
 echo " A $html_file fájl létrehozva a html könyvtárba."
 echo ""
+exit 0

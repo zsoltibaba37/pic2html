@@ -94,7 +94,7 @@ do
       find ../bmp/ -type f -name $picname -exec cp -p {} html/ \;
       if [ -z $picname ]
          then
-         echo " A $pic BMP kép hiányzik. Kérlek másold be a $pic BMP képet a ../bmp/ könyvtárba."
+         echo " A $pic BMP kép hiányzik. Kérlek másold be a BMP képet a ../bmp/ könyvtárba."
          rm -r html
          exit 1 # Exit if any BMP file is not exist.
       fi

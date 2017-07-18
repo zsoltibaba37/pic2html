@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# Fill arraydir from folder names
+# Fill arraydir from folder names, except bmp folder.
+# The bmp folder contains the images, so it does not have to be scanned.
 #
 for dir in */; do echo "$dir"; done | cut -d "/" -f1 | grep -v bmp > dir.txt
 #
@@ -8,7 +9,7 @@ readarray arraydir < dir.txt
 #
 rm dir.txt
 #
-# pic2html run in each folder
+# And run pic2html script in each folder
 #
 c=0
 while [ "y${arraydir[c]}" != "y" ]

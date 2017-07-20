@@ -23,6 +23,9 @@ do
 	   then
 	   echo ""
 	   echo " A part.txt nincs létrehozva" ${arraydir[e]} "könyvtárban, vagy üres a fájl."
+	   echo " A part.txt létrehozása."
+	   touch part.txt
+	   echo " Kész"
 	   echo " Az part.txt az alábbi módon nézzen ki."
 	   echo ""
 	   echo "S04077  10B     400db"
@@ -52,7 +55,8 @@ if [ $i -ne $a ]
    echo "################################################################################"
    echo ""
    echo " $i könyvtárban nincs part.txt."
-   echo " A script most leáll ! ! ! Kérlek hozd létre a hiányzó part.txt fájlt."
+   echo " A script most leáll ! ! ! "
+   echo " Kérlek másold bele az adatokat a part.txt fájlba."
    echo ""
    echo "################################################################################"
    echo ""

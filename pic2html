@@ -1,7 +1,13 @@
 #!/bin/bash
 exec 2>/dev/null
 #
-usage="Használat: pic2html"
+usage="
+Használat:
+$ pic2html         (Ez a normál indítás.)
+$ pic2html -p      (Ebben az esetben, nem ellenőrzi a part.txt fájlt.)
+$ pic2html -h      (Ezt a help üzenetet kapod vissza.)
+$ pic2html --help  (Ezt a help üzenetet kapod vissza.)
+"
 #
 # HTML codes: Head, Paragraph, Headings, Tail
 #

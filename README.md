@@ -69,7 +69,7 @@ $ ll
 ```
 You can see that the name of the html file is the same as the directory name.
 
-#### Image exaple
+#### Image example
 
 <p align="center">
 <img src="bmp/AM_BV_lv8_10_1234_1.BMP" width="20%">

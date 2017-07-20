@@ -76,7 +76,7 @@ do
 	echo ""
 	echo " Ugrás a" ${arraydir[c]} "könyvtárba."
 	cd ${arraydir[c]}
-	pic2html
+	pic2html -p
 	if [[ $? -eq 0 ]] # check the pic2html exit status. If the status 1, the send message.
 	then
 	  echo "################################################################################"

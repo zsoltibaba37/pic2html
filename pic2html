@@ -1,6 +1,8 @@
 #!/bin/bash
 exec 2>/dev/null
 #
+usage="Használat: pic2html"
+#
 # HTML codes: Head, Paragraph, Headings, Tail
 #
 head="
@@ -32,23 +34,37 @@ lr="Sablon	lv	darab"
 #
 # Check that the part.txt file is exists, and that it is not empty
 #
-if [ ! -s part.txt ]
-   then
-   echo ""
-   echo " A part.txt nincs létrehozva,vagy üres a fájl."
-   echo " A part.txt létrehozása."
-   touch part.txt
-   echo " Kész"
-   echo " Az part.txt az alábbi módon nézzen ki."
-   echo ""
-   echo "S04077  10B     400db"
-   echo "S04078  8B      200db"
-   echo "S04079  8B      200db"
-   echo ""
-   echo " A part.txt csak annyi sorból álljon ahány készterméket akarsz rakni a szedőlapra."
-   echo " Kérlek másold bele az adatokat a part.txt fájlba."
-   exit
-fi
+case $1 in
+ "")	if [ ! -s part.txt ]
+	   then
+	   echo ""
+	   echo " A part.txt nincs létrehozva,vagy üres a fájl."
+	   echo " A part.txt létrehozása."
+	   touch part.txt
+	   echo " Kész"
+	   echo " Az part.txt az alábbi módon nézzen ki."
+	   echo ""
+	   echo "S04077  10B     400db"
+	   echo "S04078  8B      200db"
+	   echo "S04079  8B      200db"
+	   echo ""
+	   echo " A part.txt csak annyi sorból álljon ahány készterméket akarsz rakni a szedőlapra."
+	   echo " Kérlek másold bele az adatokat a part.txt fájlba."
+	   exit 1
+	fi
+	;;
+ "-p") echo ""
+       echo " A part.txt fájl nem lesz ellenőrizve."
+       ;;
+ "-h") echo ""
+       echo " $usage"
+       exit 0
+       ;;
+ "--help") echo ""
+           echo " $usage"
+           exit 0
+           ;;
+esac
 #
 # jobnumer, piece of part
 #
@@ -91,13 +107,13 @@ do
       row=$(head part.txt -n $count2 | tail -n 1)
       pic=$(head part.txt -n $count2 | tail -n 1 | cut -c 1-7 | cut -d "S" -f2 | cut -c 2-6)
       picname=$(ls ../bmp/*.BMP | grep $pic | tail -n 1 | xargs basename)
-      find ../bmp/ -type f -name $picname -exec cp -p {} html/ \;
       if [ -z $picname ]
          then
          echo " A $pic BMP kép hiányzik. Kérlek másold be a BMP képet a ../bmp/ könyvtárba."
          rm -r html
          exit 1 # Exit if any BMP file is not exist.
       fi
+      find ../bmp/ -type f -name $picname -exec cp -p {} html/ \; # Copy the BMP files to the html folder
       echo "$p1" >> html/$msz.html
       echo "$row" >> html/$msz.html
       echo "$p2" >> html/$msz.html
@@ -110,7 +126,7 @@ do
 done
 echo "$t" >> html/$msz.html
 #
-# Copy the BMP files to the html folder
+# Exit message.
 #
 html_file=`ls html/*.html | xargs basename`
 echo ""

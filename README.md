@@ -23,6 +23,7 @@ $ pic2html
 ```
 # pic2html_all_folder
 This script use the pic2html script.
+
 The difference is that it runs in all subdirectories.
 #### How to execute the script
 ```sh

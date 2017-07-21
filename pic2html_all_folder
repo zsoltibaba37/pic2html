@@ -25,6 +25,8 @@ t="
 </html>
 "
 #
+lr="Sablon      lv      darab"
+#
 # Function: based on pic2html
 #
 function pictohtml {
@@ -105,10 +107,10 @@ do
 		i2=$(( $i + 1 ))
 		cat ../folder.txt | grep $msz | head -n $i2 | tail -n 1 | cut -d "S" -f2 >> part.txt
 		pictohtml # Run function
-		rm part.txt # Delete part.txt
 		i=$(( $i + 1 ))
 	done
 	e=$(( $e + 1 ))
+	rm part.txt # Delete part.txt
 	cd ..
 done
 echo "################################################################################"

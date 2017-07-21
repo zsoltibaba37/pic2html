@@ -39,33 +39,9 @@ $ ll
 összesen 8,0K
 drwxrwxr-x 3 user users 4,0K júl    6 10:11 012345678
 drwxrwxr-x 3 user users 4,0K júl    6 10:11 0123456789
+-rw-rw-r-- 1 user users 1,4K júl   20 13:30 folder.txt
 drwxrwxr-x 3 user users 4,0K júl    6 10:11 bmp
 
-```
-Looks like this, before run the script.
-```sh
-$ cd 012345678
-$ ll
-összesen 28K
--rw-rw-r-- 1 user users   76 júl    5 13:15 part.txt
-```
-And after the script.
-```sh
-$ ll
-összesen 28K
--rw-rw-r-- 1 user users   76 júl    5 13:15 part.txt
-drwxrwxr-x 2 user users 4,0K júl    6 11:06 html
-```
-Let see the html folder.
-```sh
-$ cd html
-$ ll
--rw-rw-r-- 1 user users 3,2K júl    6 09:32 AM_BV_lv8_10_1234_1.BMP
--rw-rw-r-- 1 user users 3,2K júl    6 09:32 AM_BV_lv8_10_1235_12.BMP
--rw-rw-r-- 1 user users 3,2K júl    6 09:32 AM_BV_lv8_10_1236_11.BMP
--rw-rw-r-- 1 user users 3,2K júl    6 09:32 AM_BV_lv8_10_1237_22.BMP
--rw-rw-r-- 1 user users 3,2K júl    6 09:32 AM_BV_lv10_18_1238_2.BMP
--rw-rw-r-- 1 user users  504 júl    6 10:11 012345678.html
 ```
 You can see that the name of the html file is the same as the directory name.
 

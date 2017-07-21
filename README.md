@@ -24,7 +24,9 @@ $ pic2html
 # pic2html_all_folder
 This script use the pic2html script.
 
-The difference is that it runs in all subdirectories.
+The difference is that it runs in all subdirectories. This script use folder.txt.
+
+Before run this script, create a folder.txt.
 #### How to execute the script
 ```sh
 $ chmod +x pic2html_all_folder

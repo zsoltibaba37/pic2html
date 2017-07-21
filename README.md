@@ -39,8 +39,6 @@ In this example, there are two folders. The ```012345678``` and the ```012345678
 ```sh
 $ ll
 összesen 8,0K
-drwxrwxr-x 3 user users 4,0K júl    6 10:11 012345678
-drwxrwxr-x 3 user users 4,0K júl    6 10:11 0123456789
 -rw-rw-r-- 1 user users 1,4K júl   20 13:30 folder.txt
 drwxrwxr-x 3 user users 4,0K júl    6 10:11 bmp
 

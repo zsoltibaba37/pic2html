@@ -106,10 +106,10 @@ do
 	do
 		i2=$(( $i + 1 ))
 		cat ../folder.txt | grep $msz | head -n $i2 | tail -n 1 | cut -d "S" -f2 >> part.txt
-		pictohtml # Run function
 		i=$(( $i + 1 ))
 	done
 	e=$(( $e + 1 ))
+	pictohtml # Run function
 	rm part.txt # Delete part.txt
 	cd ..
 done

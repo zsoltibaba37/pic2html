@@ -1,102 +1,122 @@
 #!/bin/bash
-clear
 #
-# Fill arraydir from folder names, except bmp folder.
-# The bmp folder contains the images, so it does not have to be scanned.
+# HTML codes: Head, Paragraph, Headings, Tail
 #
-for dir in */; do echo "$dir"; done | cut -d "/" -f1 | grep -v bmp > dir.txt
+head="
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+"
 #
-readarray arraydir < dir.txt
+p1="<p>"
+p2="</p>"
 #
-# This part check the part.txt is it exist or not.
+h1="<h2>"
+h2="</h2>"
 #
-a=0
-i=0
+img1="<img src=\""
+img2="\">"
+#
+t="
+</body>
+</html>
+"
+#
+# Function: based on pic2html
+#
+function pictohtml {
+# Fill the array from part.txt
+#
+readarray array < part.txt
+#
+# At this point put together the html file
+#
+echo "$head" > $msz.html
+echo "$h1" >> $msz.html
+echo "Munkaszám: $msz" >> $msz.html
+echo "$h2" >> $msz.html
+echo "$p1" >> $msz.html
+echo "$lr" >> $msz.html
+echo "$p2" >> $msz.html
+count=0
+while [ "x${array[count]}" != "x" ]
+do
+      count2=$(( $count + 1 ))
+      row=$(head part.txt -n $count2 | tail -n 1)
+      pic=$(head part.txt -n $count2 | tail -n 1 | cut -c 1-7 | cut -d "S" -f2 | cut -c 2-6)
+      picname=$(ls ../bmp/*.BMP | grep $pic | tail -n 1 | xargs basename)
+      if [ -z $picname ]
+         then
+         echo " A $pic BMP kép hiányzik. Kérlek másold be a BMP képet a ../bmp/ könyvtárba."
+#         rm -r html
+         exit 1 # Exit if any BMP file is not exist.
+      fi
+      find ../bmp/ -type f -name $picname -exec cp -p {} . \; # Copy the BMP files to the html folder
+      echo "$p1" >> $msz.html
+      echo "$row" >> $msz.html
+      echo "$p2" >> $msz.html
+      echo "$p1" >> $msz.html
+      echo "$img1" >> $msz.html
+      echo "$picname" >> $msz.html
+      echo "$img2" >> $msz.html
+      echo "$p2" >> $msz.html
+      count=$(( $count + 1 ))
+done
+echo "$t" >> $msz.html
+}
+#
+# Create all folder
+#
+mkdir -p $(cat folder.txt | cut -c 1-10)
+#
+# Its just a temp file
+#
+ls -d */ | grep -v bmp | cut -d "/" -f1 > tmp.txt
+#
+# Read folder names from temp file
+#
+readarray farray < tmp.txt
+#
+# Delete temp file
+#
+rm tmp.txt
+#
+# Create temporary the part.txt, and run the function.
+#
 e=0
-while [ "z${arraydir[e]}" != "z" ]
+while [ "z${farray[e]}" != "z" ]
 do
         echo "################################################################################"
+        echo ""
+        echo " Ugrás a" ${farray[e]} "könyvtárba, és a html fájl létrehozása."
 	echo ""
-        echo " Ugrás a" ${arraydir[e]} "könyvtárba, és a part.txt ellenörzése."
-        cd ${arraydir[e]}
-	if [ ! -s part.txt ]
-	   then
-	   echo ""
-	   echo " A part.txt nincs létrehozva" ${arraydir[e]} "könyvtárban, vagy üres a fájl."
-	   echo " A part.txt létrehozása."
-	   touch part.txt
-	   echo " Kész"
-	   echo " Az part.txt az alábbi módon nézzen ki."
-	   echo ""
-	   echo "S04077  10B     400db"
-	   echo "S04078  8B      200db"
-	   echo "S04079  8B      200db"
-	   echo ""
-	   echo " A part.txt csak annyi sorból álljon ahány készterméket akarsz rakni a szedőlapra."
-	   e=$(( $e + 1 ))
-	   i=$(( $i + 1 ))
-	   cd ..
-	   else 
-	   echo ""
-	   echo "################################################################################"
-	   echo ""
-	   echo " A part.txt létezik és nem üres."
-	   echo ""
-	   e=$(( $e + 1 ))
-	   cd ..
-	fi
-done
-#
-# If no exist part.txt in any folder the script terminate.
-#
-if [ $i -ne $a ]
-   then
-   echo ""
-   echo "################################################################################"
-   echo ""
-   echo " $i könyvtárban nincs part.txt."
-   echo " A script most leáll ! ! ! "
-   echo " Kérlek másold bele az adatokat a part.txt fájlba."
-   echo ""
-   echo "################################################################################"
-   echo ""
-   rm dir.txt
-   exit 1
-fi
-#
-rm dir.txt
-#
-# And run pic2html script in each folder
-#
-c2=0
-c=0
-while [ "y${arraydir[c]}" != "y" ]
-do
-	echo "################################################################################"
-	echo ""
-	echo " Ugrás a" ${arraydir[c]} "könyvtárba."
-	cd ${arraydir[c]}
-	pic2html -p
-	if [[ $? -eq 0 ]] # check the pic2html exit status. If the status 1, the send message.
-	then
-	  echo "################################################################################"
-	  echo ""
-	  echo " A pic2html hiba nélkül lefutott."
-	  echo ""
-	  c2=$(( $c2 + 1 ))
-	else
-	  echo "################################################################################"
-	  echo ""
-	  echo " Hiba volt a pic2html futásában." >&2
-	  echo ""
-	fi
+        cd ${farray[e]}
+#	echo $PWD
+	touch part.txt
+	msz=`pwd | xargs basename`
+	i=0
+	db=`cat ../folder.txt | grep $msz | wc -l`
+#	echo " $db alkatrész van a szedőlapon."
+	while [ $i != $db ]
+	do
+		i2=$(( $i + 1 ))
+		cat ../folder.txt | grep $msz | head -n $i2 | tail -n 1 | cut -d "S" -f2 >> part.txt
+		pictohtml # Run function
+		rm part.txt # Delete part.txt
+		i=$(( $i + 1 ))
+	done
+	e=$(( $e + 1 ))
 	cd ..
-	c=$(( $c + 1 ))
 done
-echo ""
 echo "################################################################################"
 echo ""
-echo " $c2 darab könyvtárban készítettem html könyvtárat."
+echo " Összesen " $e " html fájl készítettem."
+echo " A következő html fájlok készültek el."
+echo ""
+find -type f -name "*.html" | sort -d
 echo ""
 echo "################################################################################"
 exit 0

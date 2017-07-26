@@ -1,5 +1,9 @@
 #!/bin/bash
 #
+# Input the template number
+#
+read -p " Kérlek add meg a DXF fájl nevének hosszát Pl.: 1-7, vagy 2-6  : " template
+#
 # HTML codes: Head, Paragraph, Headings, Tail
 #
 head="
@@ -48,7 +52,8 @@ while [ "x${array[count]}" != "x" ]
 do
       count2=$(( $count + 1 ))
       row=$(head part.txt -n $count2 | tail -n 1)
-      pic=$(head part.txt -n $count2 | tail -n 1 | cut -c 1-7 | cut -d "S" -f2 | cut -c 2-6)
+#      pic=$(head part.txt -n $count2 | tail -n 1 | cut -c 1-7 | cut -d "S" -f2 | cut -c 2-6)
+      pic=$(head part.txt -n $count2 | tail -n 1 | cut -c $template)
       picname=$(ls ../bmp/*.BMP | grep $pic | tail -n 1 | xargs basename)
       if [ -z $picname ]
          then

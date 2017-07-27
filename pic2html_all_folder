@@ -1,4 +1,20 @@
 #!/bin/bash
+exec 2> >(tee -ia error.log >&2)
+#
+if [ ! -s folder.txt ]
+   then
+   echo ""
+   echo " A folder.txt nincs létrehozva,vagy üres a fájl."
+   echo " Az folder.txt az alábbi módon nézzen ki."
+   echo ""
+   echo "1234567890	S04077  10B     400db"
+   echo "2234567890	S04078  8B      200db"
+   echo "3234567890	S04079  8B      200db"
+   echo ""
+   echo " A folder.txt csak annyi sorból álljon ahány könyvtárat akarsz létrehozni."
+   echo " Kérlek másold bele az adatokat a folder.txt fájlba."
+   exit 1
+fi
 #
 # Input the template number
 #

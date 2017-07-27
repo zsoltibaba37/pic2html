@@ -1,5 +1,4 @@
 #!/bin/bash
-exec 2> error.log
 #
 # Input the template number
 #

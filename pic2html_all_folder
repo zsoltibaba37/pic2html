@@ -16,6 +16,10 @@ if [ ! -s folder.txt ]
    exit 1
 fi
 #
+#
+#
+echo " Az  [ S ] karaktert ne felejtsd el, a part név elé beírni ! ! ! "
+#
 # Input the template number
 #
 read -p " Kérlek add meg a DXF fájl nevének hosszát Pl.: 1-7, vagy 2-6  : " template

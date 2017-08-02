@@ -1,6 +1,12 @@
 #!/bin/bash
 exec 2> >(tee -ia pic2html.log >&2)
 #
+#
+#
+#lang=`locale | grep "LANG=" | cut -d "=" -f2 | cut -d "." -f1 | cut -d "_" -f1`
+#echo ""
+#echo " The current locale: " $lang
+#
 if [ ! -s folder.txt ]
    then
    echo ""
@@ -93,8 +99,9 @@ do
       if [ -z $picname ]
          then
          echo " A $pic BMP kép hiányzik. Kérlek másold be a BMP képet a ../bmp/ könyvtárba."
-#         rm -r html
-         exit 1 # Exit if any BMP file is not exist.
+         cd ..
+	 remove_folders # Remove $msz folders.
+	 exit 1 # Exit if any BMP file is not exist.
       fi
       find ../bmp/ -type f -name $picname -exec cp -p {} . \; # Copy the BMP files to the html folder
       echo "$p1" >> $msz.html
@@ -136,12 +143,10 @@ do
         echo " Ugrás a" ${farray[e]} "könyvtárba, és a html fájl létrehozása."
 	echo ""
         cd ${farray[e]}
-#	echo $PWD
 	touch part.txt
 	msz=`pwd | xargs basename`
 	i=0
 	db=`cat ../folder.txt | grep $msz | wc -l`
-#	echo " $db alkatrész van a szedőlapon."
 	while [ $i != $db ]
 	do
 		i2=$(( $i + 1 ))
@@ -149,7 +154,7 @@ do
 		i=$(( $i + 1 ))
 	done
 	e=$(( $e + 1 ))
-	pictohtml # Run function
+	pictohtml 2> ../pic2html.log # Run function
 	rm part.txt # Delete part.txt
 	cd ..
 done

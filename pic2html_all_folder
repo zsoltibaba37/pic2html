@@ -30,7 +30,12 @@ echo ""
 #
 # Input the template number
 #
-read -p " Kérlek add meg a DXF fájl nevének hosszát Pl.: 1-7, vagy 2-6  : " template
+echo " 1234567890     S04077  10B     400db"
+echo "                 ^^^^^^"
+echo "                 123456"
+echo " Ebben a példában: 2-5 a DXF fájl nevének hossza."
+echo ""
+read -p " Kérlek add meg a DXF fájl nevének hosszát Pl.: 1-7, 2-5 vagy 2-6  : " template
 echo ""
 #
 # HTML codes: Head, Paragraph, Headings, Tail

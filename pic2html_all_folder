@@ -1,5 +1,5 @@
 #!/bin/bash
-exec 2> >(tee -ia error.log >&2)
+exec 2> >(tee -ia pic2html.log >&2)
 #
 if [ ! -s folder.txt ]
    then
@@ -18,11 +18,14 @@ fi
 #
 #
 #
+echo ""
 echo " Az  [ S ] karaktert ne felejtsd el, a part név elé beírni ! ! ! "
+echo ""
 #
 # Input the template number
 #
 read -p " Kérlek add meg a DXF fájl nevének hosszát Pl.: 1-7, vagy 2-6  : " template
+echo ""
 #
 # HTML codes: Head, Paragraph, Headings, Tail
 #
@@ -50,6 +53,18 @@ t="
 "
 #
 lr="Sablon      lv      darab"
+#
+# Function: move all html and BMP file to working folder
+#
+function move_files {
+find $(ls -d */ | grep -v bmp | cut -d "/" -f1) -type f -exec mv {} . \;
+}
+#
+# Function: remove the empty folders
+#
+function remove_folders {
+find $(ls -d */ | grep -v bmp | cut -d "/" -f1) -type d -exec rm -r {} \; 2>/dev/null
+}
 #
 # Function: based on pic2html
 #
@@ -138,6 +153,14 @@ do
 	rm part.txt # Delete part.txt
 	cd ..
 done
+#
+move_files
+#
+remove_folders
+#
+mv bmp .bmp
+mv folder.txt .folder.txt
+#
 echo "################################################################################"
 echo ""
 echo " Összesen " $e " html fájl készítettem."

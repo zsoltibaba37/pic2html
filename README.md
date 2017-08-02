@@ -49,8 +49,6 @@ $ pic2html_all_folder
 
 #### Example
 
-In this example, there are two folders. The ```012345678``` and the ```0123456789```.
-
 ```sh
 $ ll
 összesen 8,0K

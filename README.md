@@ -91,7 +91,7 @@ And transforms the "folder.txt" file hidden.
 #### Image example
 
 <p align="center">
-<img src="example_before_script/bmp/AM_BV_lv8_10_1234_1.BMP" width="20%">
+<img src="example_after_script/AM_BV_lv8_10_1234_1.BMP" width="20%">
 <div align="center"><i>The first part example picture.</i></div>
 </p>
 

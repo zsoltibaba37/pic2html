@@ -17,7 +17,7 @@ if [ ! -s folder.txt ]
    echo "2234567890	S04078  8B      200db"
    echo "3234567890	S04079  8B      200db"
    echo ""
-   echo " A folder.txt csak annyi sorból álljon ahány könyvtárat akarsz létrehozni."
+   echo " A folder.txt csak annyi sorból álljon, ahány könyvtárat szeretnél létrehozni."
    echo " Kérlek másold bele az adatokat a folder.txt fájlba."
    exit 1
 fi

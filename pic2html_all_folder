@@ -49,8 +49,8 @@ head="
 <body>
 "
 #
-p1="<p>"
-p2="</p>"
+p1="<p><pre>"
+p2="</pre></p>"
 #
 h1="<h2>"
 h2="</h2>"
@@ -63,7 +63,7 @@ t="
 </html>
 "
 #
-lr="Sablon      lv      darab"
+lr="Sablon	lv	darab"
 #
 # Function: move all html and BMP file to working folder
 #

@@ -98,7 +98,6 @@ while [ "x${array[count]}" != "x" ]
 do
       count2=$(( $count + 1 ))
       row=$(head part.txt -n $count2 | tail -n 1)
-#      pic=$(head part.txt -n $count2 | tail -n 1 | cut -c 1-7 | cut -d "S" -f2 | cut -c 2-6)
       pic=$(head part.txt -n $count2 | tail -n 1 | cut -c $template)
       picname=$(ls ../bmp/*.BMP | grep $pic | tail -n 1 | xargs basename)
       if [ -z $picname ]
@@ -126,28 +125,20 @@ echo "$t" >> $msz.html
 #
 mkdir -p $(cat folder.txt | cut -c 1-10 | uniq)
 #
-# Its just a temp file
+# Read folder names
 #
-ls -d */ | grep -v bmp | cut -d "/" -f1 > tmp.txt
-#
-# Read folder names from temp file
-#
-readarray farray < tmp.txt
-#
-# Delete temp file
-#
-rm tmp.txt
+readarray darray <<< "$(ls -d */ | grep -v bmp | cut -d "/" -f1)"
 #
 # Create temporary the part.txt, and run the function.
 #
 e=0
-while [ "z${farray[e]}" != "z" ]
+while [ "z${darray[e]}" != "z" ]
 do
         echo "################################################################################"
         echo ""
-        echo " Ugrás a" ${farray[e]} "könyvtárba, és a html fájl létrehozása."
+        echo " Ugrás a" ${darray[e]} "könyvtárba, és a html fájl létrehozása."
 	echo ""
-        cd ${farray[e]}
+        cd ${darray[e]} > /dev/null
 	touch part.txt
 	msz=`pwd | xargs basename`
 	i=0

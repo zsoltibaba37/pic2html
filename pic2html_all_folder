@@ -124,7 +124,7 @@ echo "$t" >> $msz.html
 #
 # Create all folder
 #
-mkdir -p $(cat folder.txt | cut -c 1-10)
+mkdir -p $(cat folder.txt | cut -c 1-10 | uniq)
 #
 # Its just a temp file
 #

@@ -107,7 +107,7 @@ do
 	 remove_folders # Remove $msz folders.
 	 exit 1 # Exit if any BMP file is not exist.
       fi
-      find ../bmp/ -type f -name $picname -exec cp -p {} . \; # Copy the BMP files to the html folder
+      find ../bmp/ -type f -name $picname -exec cp -p {} . \;
       echo "$p1" >> $msz.html
       echo "$row" >> $msz.html
       echo "$p2" >> $msz.html

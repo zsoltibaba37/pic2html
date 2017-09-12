@@ -17,7 +17,7 @@ if [ ! -s folder.txt ]
    echo "2234567890	S04078  8B      200db"
    echo "3234567890	S04079  8B      200db"
    echo ""
-   echo " A folder.txt csak annyi sorból álljon, ahány könyvtárat szeretnél létrehozni."
+   echo " A folder.txt végéről töröld az esetleges üres sort vagy sorokat."
    echo " Kérlek másold bele az adatokat a folder.txt fájlba."
    exit 1
 fi
@@ -25,17 +25,17 @@ fi
 #
 #
 echo ""
-echo " Az  [ S ] karaktert ne felejtsd el, a part név elé beírni ! ! ! "
+echo " Az  [S] karaktert ne felejtsd el, az alkatrész név elé beírni ! ! ! "
 echo ""
 #
-# Input the template number
+# Input the part number
 #
 echo " 1234567890     S04077  10B     400db"
 echo "                 ^^^^^^"
 echo "                 123456"
 echo " Ebben a példában: 2-5 a DXF fájl nevének hossza."
 echo ""
-read -p " Kérlek add meg a DXF fájl nevének hosszát Pl.: 1-7, 2-5 vagy 2-6  : " template
+read -p " Kérlek add meg az alkatrész név elhelyezkedését. Pl.: 1-7, 2-5 vagy 2-6  : " template
 echo ""
 #
 # HTML codes: Head, Paragraph, Headings, Tail
@@ -116,7 +116,7 @@ do
       echo "$picname" >> $msz.html
       echo "$img2" >> $msz.html
       echo "$p2" >> $msz.html
-      count=$(( $count + 1 ))
+      ((count++))
 done
 echo "$t" >> $msz.html
 }
@@ -147,9 +147,9 @@ do
 	do
 		i2=$(( $i + 1 ))
 		cat ../folder.txt | grep $msz | head -n $i2 | tail -n 1 | cut -d "S" -f2 >> part.txt
-		i=$(( $i + 1 ))
+		((i++))
 	done
-	e=$(( $e + 1 ))
+	((e++))
 	pictohtml 2> ../pic2html.log # Run function
 	rm part.txt # Delete part.txt
 	cd ..
@@ -167,7 +167,7 @@ echo ""
 echo " Összesen " $e " html fájl készítettem."
 echo " A következő html fájlok készültek el."
 echo ""
-find -type f -name "*.html" | sort -d
+find -type f -name "*.html" | sort -d | cut -d "/" -f2
 echo ""
 echo "################################################################################"
 exit 0

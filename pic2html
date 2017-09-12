@@ -128,7 +128,7 @@ do
       echo "$picname" >> html/$msz.html
       echo "$img2" >> html/$msz.html
       echo "$p2" >> html/$msz.html
-      count=$(( $count + 1 ))
+      ((count++))
 done
 echo "$t" >> html/$msz.html
 #
